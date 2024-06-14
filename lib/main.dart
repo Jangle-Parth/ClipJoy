@@ -1,8 +1,9 @@
 import 'package:clipjoy/constants.dart';
-import 'package:clipjoy/views/screens/auth/login_screen.dart';
+import 'package:clipjoy/views/screens/auth/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -17,6 +18,6 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme:
             ThemeData.dark().copyWith(scaffoldBackgroundColor: backgroundColor),
-        home: LoginScreen());
+        home: SignUpScreen());
   }
 }

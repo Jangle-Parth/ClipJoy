@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({super.key});
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordcontroller = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,40 @@ class SignUpScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
               ),
               const SizedBox(
-                height: 25,
+                height: 15,
+              ),
+              Stack(
+                children: [
+                  const CircleAvatar(
+                    radius: 64,
+                    backgroundImage: AssetImage("assets/default_profile.jpg"),
+                    backgroundColor: Colors.black,
+                  ),
+                  Positioned(
+                    bottom: -10,
+                    left: 80,
+                    child: IconButton(
+                        onPressed: () {
+                          print("ok");
+                        },
+                        icon: const Icon(Icons.image)),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                child: TextInputFeild(
+                    controller: _usernameController,
+                    labelText: "Enter you Username ",
+                    isObscure: false,
+                    icon: Icons.person),
+              ),
+              const SizedBox(
+                height: 15,
               ),
               Container(
                 width: MediaQuery.of(context).size.width,
@@ -48,7 +82,7 @@ class SignUpScreen extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 margin: const EdgeInsets.symmetric(horizontal: 20),
                 child: TextInputFeild(
-                    controller: _passwordcontroller,
+                    controller: _passwordController,
                     labelText: "Enter Your Password",
                     isObscure: true,
                     icon: Icons.password),
@@ -78,6 +112,24 @@ class SignUpScreen extends StatelessWidget {
               const SizedBox(
                 height: 15,
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Already have an account?   ",
+                    style: TextStyle(fontSize: 20, color: buttonColor),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      print("Navigating to Login Screen");
+                    },
+                    child: Text(
+                      "Login",
+                      style: TextStyle(fontSize: 20, color: buttonColor),
+                    ),
+                  )
+                ],
+              )
             ],
           )),
     );

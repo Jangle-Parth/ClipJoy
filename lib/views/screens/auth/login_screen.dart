@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordcontroller = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class LoginScreen extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 margin: const EdgeInsets.symmetric(horizontal: 20),
                 child: TextInputFeild(
-                    controller: _passwordcontroller,
+                    controller: _passwordController,
                     labelText: "Enter Your Password",
                     isObscure: true,
                     icon: Icons.password),
