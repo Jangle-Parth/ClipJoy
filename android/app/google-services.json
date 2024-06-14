@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "291522502418",
+    "project_id": "clip-joy",
+    "storage_bucket": "clip-joy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:291522502418:android:f078d9b9a15a1a5cb21dcb",
+        "android_client_info": {
+          "package_name": "com.jangle.parth.clipjoy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvkksTPH8IVRWV9bx6cE9oZxdxM7fkokQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
