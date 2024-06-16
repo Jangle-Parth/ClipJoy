@@ -63,9 +63,8 @@ class LoginScreen extends StatelessWidget {
                     color: buttonColor,
                     borderRadius: const BorderRadius.all(Radius.circular(5))),
                 child: InkWell(
-                  onTap: () {
-                    print("Login User");
-                  },
+                  onTap: () => authController.loginUser(
+                      _emailController.text, _passwordController.text),
                   child: const Center(
                     child: Text(
                       "Login",
@@ -86,9 +85,7 @@ class LoginScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 20, color: buttonColor),
                   ),
                   InkWell(
-                    onTap: () {
-                      print("Navigating to Register Screen");
-                    },
+                    onTap: () {},
                     child: Text(
                       "Register",
                       style: TextStyle(fontSize: 20, color: buttonColor),
