@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:clipjoy/views/screens/auth/login_screen.dart';
 import 'package:clipjoy/views/screens/home_screen.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:clipjoy/constants.dart';

@@ -1,9 +1,10 @@
+import 'dart:io';
+
 import 'package:clipjoy/constants.dart';
 import 'package:clipjoy/models/video.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:video_compress/video_compress.dart';
 
 class UploadVideoController extends GetxController {
@@ -11,12 +12,16 @@ class UploadVideoController extends GetxController {
     final compressedvideo = await VideoCompress.compressVideo(videoPath,
         quality: VideoQuality.MediumQuality);
 
-    return compressedvideo!.file;
+    return compressedvideo?.file;
   }
 
   Future<String> _uploadVideoToStorage(String id, String videoPath) async {
     Reference ref = firebaseStorage.ref().child('videos').child(id);
-    UploadTask uploadTask = ref.putFile(await _compressVideo(videoPath));
+    File? compressedVideo = await _compressVideo(videoPath);
+    if (compressedVideo == null) {
+      Get.snackbar("Error Uploading Video", "Compressed Video Returened null");
+    }
+    UploadTask uploadTask = ref.putFile(compressedVideo!);
     TaskSnapshot snap = await uploadTask;
     String downloadUrl = await snap.ref.getDownloadURL();
     return downloadUrl;
@@ -24,19 +29,28 @@ class UploadVideoController extends GetxController {
 
   Future<String> _uploadImageToStorage(String id, String videoPath) async {
     Reference ref = firebaseStorage.ref().child('thumbnails').child(id);
-    UploadTask uploadTask = ref.putFile(await _getThumbnail(videoPath));
+    File? thumbnail = await _getThumbnail(videoPath);
+    if (thumbnail == null) {
+      Get.snackbar("Error Occured", "Error in Capturing Thumbnail");
+    }
+    UploadTask uploadTask = ref.putFile(thumbnail!);
     TaskSnapshot snap = await uploadTask;
     String downloadUrl = await snap.ref.getDownloadURL();
     return downloadUrl;
   }
 
-  _getThumbnail(String videPath) async {
+  Future<File?> _getThumbnail(String videPath) async {
     final thumbnail = await VideoCompress.getFileThumbnail(videPath);
     return thumbnail;
   }
 
-  uploadVideo(String songName, String caption, String videoPath) async {
+  Future<void> uploadVideo(
+      String songName, String caption, String videoPath) async {
     try {
+      var user = firebaseAuth.currentUser;
+      if (user == null) {
+        Get.snackbar("Error Occured", "User is not logged in");
+      }
       String uid = firebaseAuth.currentUser!.uid;
       DocumentSnapshot userDoc =
           await firestore.collection('users').doc(uid).get();

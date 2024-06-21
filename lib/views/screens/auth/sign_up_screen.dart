@@ -1,4 +1,5 @@
 import 'package:clipjoy/constants.dart';
+import 'package:clipjoy/views/screens/auth/login_screen.dart';
 import 'package:clipjoy/views/widgets/text_input_feild.dart';
 import 'package:flutter/material.dart';
 
@@ -122,7 +123,12 @@ class SignUpScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 20, color: buttonColor),
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LoginScreen()));
+                    },
                     child: Text(
                       "Login",
                       style: TextStyle(fontSize: 20, color: buttonColor),

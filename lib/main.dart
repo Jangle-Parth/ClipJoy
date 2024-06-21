@@ -1,4 +1,5 @@
 import 'package:clipjoy/constants.dart';
+import 'package:clipjoy/controller/auth_controller.dart';
 import 'package:clipjoy/views/screens/home_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,7 @@ import 'package:get/instance_manager.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp().then((value) {
-    Get.put(const HomeScreen());
+    Get.put(AuthController());
   });
   runApp(const MyApp());
 }

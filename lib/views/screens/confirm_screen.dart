@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:clipjoy/controller/upload_video_controller.dart';
+import 'package:clipjoy/views/screens/add_video_screen.dart';
+import 'package:clipjoy/views/screens/home_screen.dart';
 import 'package:clipjoy/views/widgets/text_input_feild.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,6 +19,11 @@ class ConfirmScreen extends StatefulWidget {
 }
 
 class _ConfirmScreenState extends State<ConfirmScreen> {
+  TextEditingController _songController = TextEditingController();
+  TextEditingController _captionController = TextEditingController();
+  UploadVideoController uploadVideoController =
+      Get.put(UploadVideoController());
+  bool _isLoading = false;
   @override
   void initState() {
     super.initState();
@@ -29,13 +36,71 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
     });
   }
 
+  @override
+  void dispose() {
+    controller.pause();
+    controller.dispose();
+    _songController.dispose();
+    _captionController.dispose();
+    super.dispose();
+  }
+
+  Future<void> uploadVideo(UploadVideoController uploadVideoController,
+      String songName, String caption, String videoPath) async {
+    setState(() {
+      _isLoading = true;
+    });
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const Center(
+              child: CircularProgressIndicator(),
+            ));
+    await uploadVideoController.uploadVideo(songName, caption, videoPath);
+    setState(() {
+      _isLoading = false;
+    });
+    Navigator.of(context).pop(); // Close the loading dialog
+
+    _showCustomToast(context, 'Video added successfully!');
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+        (route) => false);
+  }
+
+  void _showCustomToast(BuildContext context, String message) {
+    final overlay = Overlay.of(context);
+    final overlayEntry = OverlayEntry(
+      builder: (context) => Positioned(
+        bottom: 50.0,
+        left: MediaQuery.of(context).size.width * 0.2,
+        child: Material(
+          color: Colors.transparent,
+          child: Container(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.8),
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: Text(
+              message,
+              style: const TextStyle(color: Colors.black),
+            ),
+          ),
+        ),
+      ),
+    );
+    overlay.insert(overlayEntry);
+    Future.delayed(const Duration(seconds: 2), () {
+      overlayEntry.remove();
+    });
+  }
+
   late VideoPlayerController controller;
   @override
   Widget build(BuildContext context) {
-    TextEditingController _songController = TextEditingController();
-    TextEditingController _captionController = TextEditingController();
-    UploadVideoController uploadVideoController =
-        Get.put(UploadVideoController());
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -83,10 +148,13 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                     height: 10,
                   ),
                   ElevatedButton(
-                      onPressed: () => uploadVideoController.uploadVideo(
-                          _songController.text,
-                          _captionController.text,
-                          widget.videoPath),
+                      onPressed: () async {
+                        await uploadVideo(
+                            uploadVideoController,
+                            _songController.text,
+                            _captionController.text,
+                            widget.videoPath);
+                      },
                       child: const Text(
                         "Upload!",
                         style: TextStyle(fontSize: 20, color: Colors.white),
