@@ -1,4 +1,7 @@
 import 'dart:io';
+import 'package:clipjoy/views/screens/auth/login_screen.dart';
+import 'package:clipjoy/views/screens/home_screen.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:clipjoy/constants.dart';
@@ -8,6 +11,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
+  late Rx<User?> _user;
   static AuthController instance = Get.find();
   late Rx<File?> _pickedImage;
   File? get profilePhoto => _pickedImage.value;
@@ -35,11 +39,29 @@ class AuthController extends GetxController {
   void loginUser(String email, String password) async {
     try {
       if (email.isNotEmpty && password.isNotEmpty) {
+        await firebaseAuth.signInWithEmailAndPassword(
+            email: email, password: password);
       } else {
-        Get.snackbar("Error Logging you in", "Please Fill all the feilds");
+        Get.snackbar("Error Loggin you in", "Please Fill all the feilds");
       }
     } catch (e) {
       Get.snackbar("Error Loggin in", e.toString());
+    }
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    _user = Rx<User?>(firebaseAuth.currentUser);
+    _user.bindStream(firebaseAuth.authStateChanges());
+    ever(_user, _setInitialScreen);
+  }
+
+  _setInitialScreen(User? user) {
+    if (user == null) {
+      Get.offAll(() => LoginScreen());
+    } else {
+      Get.offAll(() => const HomeScreen());
     }
   }
 

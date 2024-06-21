@@ -1,6 +1,5 @@
 import 'package:clipjoy/constants.dart';
-import 'package:clipjoy/controller/auth_controller.dart';
-import 'package:clipjoy/views/screens/auth/sign_up_screen.dart';
+import 'package:clipjoy/views/screens/home_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -9,7 +8,7 @@ import 'package:get/instance_manager.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp().then((value) {
-    Get.put(AuthController());
+    Get.put(const HomeScreen());
   });
   runApp(const MyApp());
 }
@@ -25,6 +24,6 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme:
             ThemeData.dark().copyWith(scaffoldBackgroundColor: backgroundColor),
-        home: SignUpScreen());
+        home: const HomeScreen());
   }
 }
