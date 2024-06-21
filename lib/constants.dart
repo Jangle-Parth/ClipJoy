@@ -1,5 +1,6 @@
 import 'package:clipjoy/controller/auth_controller.dart';
 import 'package:clipjoy/views/screens/add_video_screen.dart';
+import 'package:clipjoy/views/screens/video_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -14,7 +15,7 @@ var firestore = FirebaseFirestore.instance;
 var authController = AuthController.instance;
 
 const pages = [
-  Text("Home Screen"),
+  VideoScreen(),
   Text("Search Screen"),
   AddVideoScreen(),
   Text("Message Screen"),

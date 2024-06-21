@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:clipjoy/controller/upload_video_controller.dart';
-import 'package:clipjoy/views/screens/add_video_screen.dart';
 import 'package:clipjoy/views/screens/home_screen.dart';
 import 'package:clipjoy/views/widgets/text_input_feild.dart';
 import 'package:flutter/material.dart';
