@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:clipjoy/controller/upload_video_controller.dart';
 import 'package:clipjoy/views/widgets/text_input_feild.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 
 class ConfirmScreen extends StatefulWidget {
@@ -30,8 +32,10 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
   late VideoPlayerController controller;
   @override
   Widget build(BuildContext context) {
-    TextEditingController songController = TextEditingController();
-    TextEditingController captionController = TextEditingController();
+    TextEditingController _songController = TextEditingController();
+    TextEditingController _captionController = TextEditingController();
+    UploadVideoController uploadVideoController =
+        Get.put(UploadVideoController());
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -56,7 +60,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                     margin: const EdgeInsets.symmetric(horizontal: 10),
                     width: MediaQuery.of(context).size.width - 20,
                     child: TextInputFeild(
-                      controller: songController,
+                      controller: _songController,
                       labelText: "Song Name",
                       isObscure: false,
                       icon: Icons.music_note,
@@ -69,7 +73,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                     margin: const EdgeInsets.symmetric(horizontal: 10),
                     width: MediaQuery.of(context).size.width - 20,
                     child: TextInputFeild(
-                      controller: captionController,
+                      controller: _captionController,
                       labelText: " Caption",
                       isObscure: false,
                       icon: Icons.closed_caption,
@@ -79,7 +83,10 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                     height: 10,
                   ),
                   ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () => uploadVideoController.uploadVideo(
+                          _songController.text,
+                          _captionController.text,
+                          widget.videoPath),
                       child: const Text(
                         "Upload!",
                         style: TextStyle(fontSize: 20, color: Colors.white),
