@@ -3,38 +3,50 @@ import 'package:video_player/video_player.dart';
 
 class ShortsPlayer extends StatefulWidget {
   final String videoUrl;
-  const ShortsPlayer(controller, {super.key, required this.videoUrl});
+  const ShortsPlayer({super.key, required this.videoUrl});
 
   @override
   State<ShortsPlayer> createState() => _ShortsPlayerState();
 }
 
 class _ShortsPlayerState extends State<ShortsPlayer> {
-  late VideoPlayerController videoPlayerController;
+  late VideoPlayerController _videoPlayerController;
+  late Future<void> _initializeVideoPlayerFuture;
   @override
   void initState() {
     super.initState();
-    videoPlayerController =
-        VideoPlayerController.networkUrl(widget.videoUrl as Uri)
-          ..initialize().then((value) {
-            videoPlayerController.play();
-            videoPlayerController.setVolume(1);
-          });
+    _videoPlayerController =
+        VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl));
+    _initializeVideoPlayerFuture =
+        _videoPlayerController.initialize().then((value) {
+      _videoPlayerController.play();
+      _videoPlayerController.setVolume(1);
+    });
   }
 
   @override
   void dispose() {
+    _videoPlayerController.dispose();
     super.dispose();
-    videoPlayerController.dispose();
   }
 
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Container(
-      width: size.width,
-      height: size.height,
-      decoration: const BoxDecoration(color: Colors.black),
-      child: VideoPlayer(videoPlayerController),
+    return FutureBuilder(
+      future: _initializeVideoPlayerFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return AspectRatio(
+            aspectRatio: _videoPlayerController.value.aspectRatio,
+            child: VideoPlayer(_videoPlayerController),
+          );
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
     );
   }
 }

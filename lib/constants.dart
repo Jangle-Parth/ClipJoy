@@ -14,10 +14,10 @@ var firebaseStorage = FirebaseStorage.instance;
 var firestore = FirebaseFirestore.instance;
 var authController = AuthController.instance;
 
-const pages = [
+List pages = [
   VideoScreen(),
-  Text("Search Screen"),
-  AddVideoScreen(),
-  Text("Message Screen"),
-  Text("Account Screen"),
+  const Text("Search Screen"),
+  const AddVideoScreen(),
+  const Text("Message Screen"),
+  const Text("Account Screen"),
 ];

@@ -52,7 +52,7 @@ class Video {
         shareCount: snapshot["shareCount"],
         songname: snapshot["songname"],
         caption: snapshot["caption"],
-        videoUrl: snapshot["username"],
+        videoUrl: snapshot["videoUrl"],
         thumbnail: snapshot["thumbnail"],
         profilePhoto: snapshot["profilePhoto"]);
   }
