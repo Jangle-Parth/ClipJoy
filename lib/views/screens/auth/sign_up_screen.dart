@@ -1,5 +1,5 @@
 import 'package:clipjoy/constants.dart';
-import 'package:clipjoy/views/widgets/test_input_feild.dart';
+import 'package:clipjoy/views/widgets/text_input_feild.dart';
 import 'package:flutter/material.dart';
 
 class SignUpScreen extends StatelessWidget {

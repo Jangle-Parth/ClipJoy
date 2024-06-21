@@ -33,10 +33,11 @@ dependencies:
   firebase_auth: ^4.16.0
   firebase_core: ^2.24.2
   firebase_storage: ^11.0.16
-  get: ^4.6.6
   flutter:
     sdk: flutter
+  get: ^4.6.6
   image_picker: ^1.0.8
+  video_player: ^2.7.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0
