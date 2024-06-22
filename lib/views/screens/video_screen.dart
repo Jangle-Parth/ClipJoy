@@ -1,5 +1,6 @@
 import 'package:clipjoy/constants.dart';
 import 'package:clipjoy/controller/videocontroller.dart';
+import 'package:clipjoy/views/screens/comment_screen.dart';
 import 'package:clipjoy/views/widgets/circleanimation.dart';
 import 'package:clipjoy/views/widgets/shorts_player.dart';
 import 'package:flutter/material.dart';
@@ -176,7 +177,10 @@ class VideoScreen extends StatelessWidget {
                                           height: 15,
                                         ),
                                         InkWell(
-                                          onTap: () {},
+                                          onTap: () => Navigator.of(context)
+                                              .push(MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      CommentScreen())),
                                           child: const Icon(
                                             Icons.comment,
                                             size: 30,
