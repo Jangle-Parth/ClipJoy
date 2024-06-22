@@ -1,3 +1,4 @@
+import 'package:clipjoy/constants.dart';
 import 'package:clipjoy/controller/videocontroller.dart';
 import 'package:clipjoy/views/widgets/circleanimation.dart';
 import 'package:clipjoy/views/widgets/shorts_player.dart';
@@ -151,11 +152,15 @@ class VideoScreen extends StatelessWidget {
                                     Column(
                                       children: [
                                         InkWell(
-                                          onTap: () {},
-                                          child: const Icon(
+                                          onTap: () => videoController
+                                              .likeVideo(data.id),
+                                          child: Icon(
                                             Icons.favorite,
                                             size: 30,
-                                            color: Colors.red,
+                                            color: data.likes.contains(
+                                                    authController.user?.uid)
+                                                ? Colors.red
+                                                : Colors.white,
                                           ),
                                         ),
                                         const SizedBox(
