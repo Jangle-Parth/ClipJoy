@@ -180,7 +180,9 @@ class VideoScreen extends StatelessWidget {
                                           onTap: () => Navigator.of(context)
                                               .push(MaterialPageRoute(
                                                   builder: (context) =>
-                                                      CommentScreen())),
+                                                      CommentScreen(
+                                                        id: data.id,
+                                                      ))),
                                           child: const Icon(
                                             Icons.comment,
                                             size: 30,

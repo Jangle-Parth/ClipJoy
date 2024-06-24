@@ -37,6 +37,7 @@ dependencies:
     sdk: flutter
   get: ^4.6.6
   image_picker: ^1.0.8
+  timeago: ^3.6.1
   video_compress: ^3.1.0
   video_player: ^2.7.0
 
