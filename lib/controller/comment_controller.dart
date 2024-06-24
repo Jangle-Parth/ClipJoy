@@ -57,9 +57,10 @@ class CommentController extends GetxController {
             .set(comment.toJson());
         DocumentSnapshot doc =
             await firestore.collection('videos').doc(_postId).get();
-        await firestore.collection("comments").doc(_postId).get();
+
         firestore.collection('videos').doc(_postId).update(
             {'commentCount': (doc.data()! as dynamic)['commentCount'] + 1});
+        Get.snackbar("Success", "Comment posted successfully");
       }
     } catch (e) {
       Get.snackbar("Error Occured", e.toString());
@@ -84,8 +85,7 @@ class CommentController extends GetxController {
           .update({
         'likes': FieldValue.arrayRemove([uid])
       });
-    }
-    if ((doc.data()! as dynamic)['likes'].contains(uid)) {
+    } else {
       await firestore
           .collection("videos")
           .doc(_postId)

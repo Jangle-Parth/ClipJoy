@@ -34,7 +34,7 @@ class CommentScreen extends StatelessWidget {
                       title: Row(children: [
                         Expanded(
                           child: Text(
-                            "${comment.username}: " + "${comment.comment}",
+                            "${comment.username}: " "${comment.comment}",
                             style: const TextStyle(
                                 fontSize: 15,
                                 color: Colors.white,
@@ -90,8 +90,10 @@ class CommentScreen extends StatelessWidget {
                         fontWeight: FontWeight.w700)),
               ),
               trailing: TextButton(
-                  onPressed: () =>
-                      commentController.postComment(_commentController.text),
+                  onPressed: () {
+                    commentController.postComment(_commentController.text);
+                    _commentController.clear();
+                  },
                   child: const Text(
                     "Send",
                     style: TextStyle(fontSize: 16, color: Colors.white),
