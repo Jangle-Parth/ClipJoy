@@ -95,4 +95,8 @@ class AuthController extends GetxController {
       Get.snackbar("Error Creating Account", e.toString());
     }
   }
+
+  signOut() async {
+    await firebaseAuth.signOut();
+  }
 }
