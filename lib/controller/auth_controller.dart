@@ -16,6 +16,12 @@ class AuthController extends GetxController {
   File? get profilePhoto => _pickedImage.value;
   User? get user => _user.value;
 
+  @override
+  void onInit() {
+    super.onInit();
+    _user = Rx<User?>(firebaseAuth.currentUser);
+  }
+
   void pickImage() async {
     final pickedImage =
         await ImagePicker().pickImage(source: ImageSource.gallery);

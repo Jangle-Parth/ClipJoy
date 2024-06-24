@@ -1,5 +1,6 @@
 import 'package:clipjoy/controller/search_controller.dart';
 import 'package:clipjoy/models/user.dart';
+import 'package:clipjoy/views/screens/profileScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -32,7 +33,8 @@ class SearchScreen extends StatelessWidget {
               : ListView.builder(itemBuilder: (context, index) {
                   MyUser user = searchController.searchedUsers[index];
                   InkWell(
-                    onTap: () {},
+                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ProfileScreen(uid: user.uid))),
                     child: ListTile(
                       leading: CircleAvatar(
                         backgroundImage: NetworkImage(user.profilePhoto),
