@@ -18,21 +18,25 @@ class _ShortsPlayerState extends State<ShortsPlayer> {
   @override
   void initState() {
     super.initState();
-    _playVideo(widget.videoUrl);
+    _initializePlayer();
   }
 
   void _videoListener() {
-    if (_videoPlayerController.value.position ==
+    if (_videoPlayerController.value.position >=
         _videoPlayerController.value.duration) {
       final nextVideo = _videoController.nextVideo;
       if (nextVideo != null) {
+        _videoPlayerController.pause();
         _videoPlayerController.removeListener(_videoListener);
-        _playVideo(nextVideo.videoUrl);
+        _videoPlayerController.dispose();
+        setState(() {
+          _initializePlayer();
+        });
       }
     }
   }
 
-  void _playVideo(String url) {
+  void _initializePlayer() {
     _videoPlayerController =
         VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl));
     _initializeVideoPlayerFuture =

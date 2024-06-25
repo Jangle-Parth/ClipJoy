@@ -1,6 +1,5 @@
 import 'package:clipjoy/controller/auth_controller.dart';
 import 'package:clipjoy/views/screens/add_video_screen.dart';
-import 'package:clipjoy/views/screens/auth/login_screen.dart';
 import 'package:clipjoy/views/screens/profileScreen.dart';
 import 'package:clipjoy/views/screens/search_screen.dart';
 import 'package:clipjoy/views/screens/video_screen.dart';
@@ -21,6 +20,5 @@ List pages = [
   VideoScreen(),
   SearchScreen(),
   const AddVideoScreen(),
-  const Text("Message Screen"),
   ProfileScreen(uid: authController.user!.uid)
 ];

@@ -55,8 +55,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 icon: Icon(Icons.search, size: 30), label: "Search"),
             BottomNavigationBarItem(icon: CustomIcon(), label: ""),
             BottomNavigationBarItem(
-                icon: Icon(Icons.message, size: 30), label: "Message"),
-            BottomNavigationBarItem(
                 icon: Icon(Icons.person, size: 30), label: "Profile"),
           ]),
       body: Center(child: page),
