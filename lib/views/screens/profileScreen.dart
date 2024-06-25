@@ -120,16 +120,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             height: 15,
                             margin: const EdgeInsets.symmetric(horizontal: 15),
                           ),
-                          const Column(
+                          Column(
                             children: [
-                              Text('10',
-                                  style: TextStyle(
+                              Text(controller.user['likes'],
+                                  style: const TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold)),
-                              SizedBox(
+                              const SizedBox(
                                 height: 5,
                               ),
-                              Text('likes',
+                              const Text('likes',
                                   style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold))
