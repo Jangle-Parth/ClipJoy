@@ -32,11 +32,9 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: BottomNavigationBar(
           onTap: (index) {
             setState(() {
-              if (index == 2) {
-                final nextvideo = _videoController.nextVideo;
-                if (nextvideo != null) {
-                  page = ShortsPlayer(videoUrl: nextvideo.videoUrl);
-                }
+              final nextvideo = _videoController.nextVideo;
+              if (nextvideo != null) {
+                page = ShortsPlayer(videoUrl: nextvideo.videoUrl);
               } else {
                 pageIndex = index;
                 page = pages[pageIndex];
