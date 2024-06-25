@@ -30,23 +30,25 @@ class SearchScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   ),
                 )
-              : ListView.builder(itemBuilder: (context, index) {
-                  MyUser user = searchController.searchedUsers[index];
-                  InkWell(
-                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => ProfileScreen(uid: user.uid))),
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        backgroundImage: NetworkImage(user.profilePhoto),
+              : ListView.builder(
+                  itemCount: searchController.searchedUsers.length,
+                  itemBuilder: (context, index) {
+                    MyUser user = searchController.searchedUsers[index];
+                    return InkWell(
+                      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => ProfileScreen(uid: user.uid))),
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          backgroundImage: NetworkImage(user.profilePhoto),
+                        ),
+                        title: Text(
+                          user.name,
+                          style: const TextStyle(
+                              fontSize: 18, color: Colors.white),
+                        ),
                       ),
-                      title: Text(
-                        user.name,
-                        style:
-                            const TextStyle(fontSize: 18, color: Colors.white),
-                      ),
-                    ),
-                  );
-                }));
+                    );
+                  }));
     });
   }
 }

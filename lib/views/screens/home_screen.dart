@@ -1,15 +1,11 @@
-import 'dart:math';
-
 import 'package:clipjoy/constants.dart';
 import 'package:clipjoy/controller/videocontroller.dart';
 import 'package:clipjoy/views/widgets/customicon.dart';
-import 'package:clipjoy/views/widgets/shorts_player.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
-  final String? videoUrl;
-  const HomeScreen({super.key, this.videoUrl});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -18,13 +14,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int pageIndex = 0;
   final VideoController _videoController = Get.put(VideoController());
-  late Widget page;
-
-  @override
-  void initState() {
-    super.initState();
-    page = pages[0];
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: BottomNavigationBar(
           onTap: (index) {
             setState(() {
-              final nextvideo = _videoController.nextVideo;
-              if (nextvideo != null) {
-                page = ShortsPlayer(videoUrl: nextvideo.videoUrl);
-              } else {
-                pageIndex = index;
-                page = pages[pageIndex];
-              }
+              pageIndex = index;
             });
           },
           type: BottomNavigationBarType.fixed,
@@ -55,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.person, size: 30), label: "Profile"),
           ]),
-      body: Center(child: page),
+      body: Center(child: pages[pageIndex]),
     );
   }
 }
