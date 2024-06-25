@@ -73,6 +73,7 @@ class ProfileController extends GetxController {
       'profilePhoto': profilePhoto,
       'name': name,
       'thumbnails': thumbanil,
+      'videos': videos,
     };
     update();
   }

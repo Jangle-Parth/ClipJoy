@@ -1,9 +1,11 @@
 import 'dart:math';
 
 import 'package:clipjoy/constants.dart';
+import 'package:clipjoy/controller/videocontroller.dart';
 import 'package:clipjoy/views/widgets/customicon.dart';
 import 'package:clipjoy/views/widgets/shorts_player.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
   final String? videoUrl;
@@ -15,25 +17,30 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int pageIndex = 0;
-  int randomIndex = 1;
-  Widget page = pages[0];
+  final VideoController _videoController = Get.put(VideoController());
+  late Widget page;
+
   @override
+  void initState() {
+    super.initState();
+    page = pages[0];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
           onTap: (index) {
             setState(() {
-              print(widget.videoUrl);
-              if (widget.videoUrl == null) {
+              if (index == 2) {
+                final nextvideo = _videoController.nextVideo;
+                if (nextvideo != null) {
+                  page = ShortsPlayer(videoUrl: nextvideo.videoUrl);
+                }
+              } else {
                 pageIndex = index;
                 page = pages[pageIndex];
-              } else {
-                print(widget.videoUrl);
-                page = ShortsPlayer(videoUrl: widget.videoUrl!);
-                print(page);
               }
-              print(page);
             });
           },
           type: BottomNavigationBarType.fixed,

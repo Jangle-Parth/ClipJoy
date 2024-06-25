@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 class VideoController extends GetxController {
   final Rx<List<Video>> _videoList = Rx<List<Video>>([]);
   List<Video> get videoList => _videoList.value;
+  int _currentVideoIndex = 0;
 
   @override
   void onInit() {
@@ -18,8 +19,15 @@ class VideoController extends GetxController {
           Video.fromSnamp(element),
         );
       }
+      retVal.shuffle();
       return retVal;
     }));
+  }
+
+  Video? get nextVideo {
+    if (_videoList.value.isEmpty) return null;
+    _currentVideoIndex = (_currentVideoIndex + 1) % _videoList.value.length;
+    return _videoList.value[_currentVideoIndex];
   }
 
   likeVideo(String id) async {

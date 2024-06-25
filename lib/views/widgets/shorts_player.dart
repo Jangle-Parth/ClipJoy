@@ -1,4 +1,6 @@
+import 'package:clipjoy/controller/videocontroller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 
 class ShortsPlayer extends StatefulWidget {
@@ -12,15 +14,32 @@ class ShortsPlayer extends StatefulWidget {
 class _ShortsPlayerState extends State<ShortsPlayer> {
   late VideoPlayerController _videoPlayerController;
   late Future<void> _initializeVideoPlayerFuture;
+  final VideoController _videoController = Get.find<VideoController>();
   @override
   void initState() {
     super.initState();
+    _playVideo(widget.videoUrl);
+  }
+
+  void _videoListener() {
+    if (_videoPlayerController.value.position ==
+        _videoPlayerController.value.duration) {
+      final nextVideo = _videoController.nextVideo;
+      if (nextVideo != null) {
+        _videoPlayerController.removeListener(_videoListener);
+        _playVideo(nextVideo.videoUrl);
+      }
+    }
+  }
+
+  void _playVideo(String url) {
     _videoPlayerController =
         VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl));
     _initializeVideoPlayerFuture =
         _videoPlayerController.initialize().then((value) {
       _videoPlayerController.play();
       _videoPlayerController.setVolume(1);
+      _videoPlayerController.addListener(_videoListener);
     });
   }
 

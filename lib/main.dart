@@ -1,6 +1,6 @@
 import 'package:clipjoy/constants.dart';
 import 'package:clipjoy/controller/auth_controller.dart';
-import 'package:clipjoy/views/screens/home_screen.dart';
+import 'package:clipjoy/views/screens/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -25,6 +25,6 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme:
             ThemeData.dark().copyWith(scaffoldBackgroundColor: backgroundColor),
-        home: const HomeScreen());
+        home: const SplashScreen());
   }
 }

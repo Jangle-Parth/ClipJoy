@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:clipjoy/constants.dart';
 import 'package:clipjoy/controller/profile_controller.dart';
 import 'package:clipjoy/views/screens/home_screen.dart';
+import 'package:clipjoy/views/widgets/shorts_player.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -32,7 +33,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             );
           }
           final List<String> thumbnails = controller.user['thumbnails'];
-          final List<String> videos = controller.user['videos'] ?? [];
+          final List<String> videos = controller.user['videos'];
           return Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.black12,
@@ -176,15 +177,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   mainAxisSpacing: 10),
                           itemBuilder: (context, index) {
                             String thumbnail = thumbnails[index];
-                            String? videoUrl =
-                                index < videos.length ? videos[index] : null;
+                            String videoUrl = videos[index];
                             return GestureDetector(
                               onTap: () {
                                 try {
-                                  Get.snackbar(
-                                      "Acknowledgement", " ${videos.length} ");
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => HomeScreen(
+                                      builder: (context) => ShortsPlayer(
                                             videoUrl: videoUrl,
                                           )));
                                 } catch (e) {
